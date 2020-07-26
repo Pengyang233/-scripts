@@ -52,10 +52,11 @@ def add_head_and_copy(note_path, wiki_path):
 def move_img(note_path, wiki_path):
     note_name = os.path.split(note_path)[-1].split('.')[0]
     img_folder = os.path.join(os.path.split(note_path)[0], '_asset',note_name)
-    dst_img_folder = os.path.join(os.path.split(wiki_path)[0], note_name)
-    mkdir_if_missing(dst_img_folder)
-    for i in os.listdir(img_folder):
-        shutil.copy(os.path.join(img_folder, i), os.path.join(dst_img_folder, i))
+    if os.path.exists(img_folder):
+        dst_img_folder = os.path.join(os.path.split(wiki_path)[0], note_name)
+        mkdir_if_missing(dst_img_folder)
+        for i in os.listdir(img_folder):
+            shutil.copy(os.path.join(img_folder, i), os.path.join(dst_img_folder, i))
 
 def same_check(note_path):
     # 若笔记文件七天内有修改，则认为笔记和wiki上的备份是不同的
